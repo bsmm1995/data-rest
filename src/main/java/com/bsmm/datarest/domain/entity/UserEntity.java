@@ -9,21 +9,24 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@NamedQuery(name = "UserEntity.findByCustomEmail", query = "from UserEntity where email = :email")
+@Entity(name = "USER_ENTITY")
+@NamedQuery(name = "UserEntity.findByCustomEmail", query = "FROM USER_ENTITY WHERE email = :email")
 @NamedNativeQuery(name = "UserEntity.findAllByIdsInFilter", query = "SELECT * FROM USER_ENTITY  WHERE ID IN ?", resultClass = UserEntity.class)
 @SqlResultSetMapping(
-        name = "UserDTOAMapper",
-        classes = {
-                @ConstructorResult(
-                        targetClass = com.bsmm.datarest.domain.dto.UserDTO.class,
-                        columns = {
-                                @ColumnResult(name = "id", type = Long.class),
-                                @ColumnResult(name = "name", type = String.class),
-                                @ColumnResult(name = "email")})})
+        name = "UserDTOAMapping",
+        entities =
+        @EntityResult(
+                entityClass = UserEntity.class,
+                fields = {
+                        @FieldResult(name = "id", column = "id"),
+                        @FieldResult(name = "name", column = "name"),
+                        @FieldResult(name = "email", column = "email")
+                })
+)
 @NamedNativeQuery(name = "UserEntity.findAllUsersByNameAndEmail",
-        query = "SELECT * FROM USER_ENTITY WHERE u.email = :email AND u.name = :name",
-        resultSetMapping = "UserDTOAMapper")
+        query = "SELECT * FROM USER_ENTITY",
+        resultClass = UserEntity.class,
+        resultSetMapping = "UserDTOAMapping")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
