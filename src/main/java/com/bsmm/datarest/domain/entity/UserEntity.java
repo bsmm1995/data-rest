@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NamedQuery(name = "UserEntity.findByCustomEmail", query = "FROM USER_ENTITY WHERE email = :email")
 @NamedNativeQuery(name = "UserEntity.findAllByIdsInFilter", query = "SELECT * FROM USER_ENTITY  WHERE ID IN ?", resultClass = UserEntity.class)
 @SqlResultSetMapping(
-        name = "UserDTOAMapping",
+        name = "UserMapping",
         entities =
         @EntityResult(
                 entityClass = UserEntity.class,
@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NamedNativeQuery(name = "UserEntity.findAllUsersByNameAndEmail",
         query = "SELECT * FROM USER_ENTITY",
         resultClass = UserEntity.class,
-        resultSetMapping = "UserDTOAMapping")
+        resultSetMapping = "UserMapping")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

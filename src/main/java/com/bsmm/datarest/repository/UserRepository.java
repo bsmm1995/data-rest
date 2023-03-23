@@ -1,5 +1,6 @@
 package com.bsmm.datarest.repository;
 
+import com.bsmm.datarest.domain.dto.UserInterface;
 import com.bsmm.datarest.domain.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,4 +24,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     @Query(name = "UserEntity.findAllUsersByNameAndEmail")
     List<UserEntity> findAllUsersByNameAndEmail();
+
+    @Query(value = "SELECT ue.name as name, ue.email as email FROM USER_ENTITY ue")
+    List<UserInterface> findAllUsersByNameAndEmailTest();
 }
