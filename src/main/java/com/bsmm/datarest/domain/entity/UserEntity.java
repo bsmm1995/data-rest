@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
                 })
 )
 @NamedNativeQuery(name = "UserEntity.findAllUsersByNameAndEmail",
-        query = "SELECT * FROM USER_ENTITY",
+        query = "SELECT * FROM USER_ENTITY ue WHERE ue.name = :name AND ue.email = :email",
         resultClass = UserEntity.class,
         resultSetMapping = "UserMapping")
 public class UserEntity {
